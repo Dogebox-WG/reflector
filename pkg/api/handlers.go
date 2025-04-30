@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
+	"net"
 	"net/http"
-	"regexp"
 	"strings"
 
 	"github.com/dogeorg/reflector/pkg/database"
@@ -76,7 +76,5 @@ func isValidToken(token string) bool {
 }
 
 func isValidIP(ip string) bool {
-	ipPattern := `^(\d{1,3}\.){3}\d{1,3}$`
-	match, _ := regexp.MatchString(ipPattern, ip)
-	return match && len(ip) <= 15
+	return net.ParseIP(ip) != nil
 }
